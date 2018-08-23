@@ -1,4 +1,10 @@
 
+/***********************************
+ * John Naylor
+ * CMSC 401
+ * Algorithm Analysis
+ **********************************/
+
 import java.util.Scanner;
 
 public class TrialAssignment {
