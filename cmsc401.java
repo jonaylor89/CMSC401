@@ -7,7 +7,7 @@
 
 import java.util.Scanner;
 
-public class TrialAssignment {
+public class cmsc401 {
 
     static Scanner userInput;
 
