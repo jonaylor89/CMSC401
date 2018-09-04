@@ -34,8 +34,8 @@ public class TrialAssignment {
             
             line = lineStr.split(" ");
 
-            firstIndex = Integer.valueOf(line.length) - 1;
-            secondIndex = Integer.valueOf(line.length) - 2;
+            firstIndex = Integer.valueOf(line[line.length - 1]);
+            secondIndex = Integer.valueOf(line[line.length - 2]);
 
             products[i] = Integer.valueOf(line[firstIndex]) * Integer.valueOf(line[secondIndex]);
 
