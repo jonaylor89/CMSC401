@@ -1,5 +1,6 @@
 
 import java.util.Scanner;
+import java.util.HashMap;
 
 class Assignment3 {
 
@@ -13,25 +14,28 @@ class Assignment3 {
         int numOfHighways = in.nextInt();
         in.nextLine();
 
-        int[] motelPrices = new int[numOfCities - 2];
+        HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>();
         for (int i = 0; i <= motelPrice.length; i++) {
             int cityNumber = in.nextInt();
-            in.nextLine();
 
-            motelPrice[i] = in.nextInt();
+            int motelPrice = in.nextInt();
             int.nextLine();
+
+            motelPrices.put(cityNumber, motelPrice);
         }
 
-        ArrayList<int[]> gasPrices = new ArrayList<int[]>();
+        HashMap<Integer[], Integer> gasPrices = new HashMap<Integer[], Integer>();
         while (in.hasNextLine()) {
             int cityOne = in.nextInt();
             int cityTwo = in.nextInt();
             int price = in.nextInt();
 
-            gasPrices.add(new int[]{cityOne, cityTwo, price});
+            gasPrices.put(new int[]{cityOne, cityTwo}, price);
         }
 
+    }
 
+    int dijkstra() {
     
     }
 
