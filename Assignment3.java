@@ -54,12 +54,12 @@ class Assignment3 {
         PriorityQueue<Node> pq; 
 
         public Graph() {
-            edges = new ArrayList<Edge>();
+            distance = new ArrayList<Edge>();
             pq = new PriorityQueue<Node>();
         }
 
         public void addEdge(Edge e) {
-             
+            edges.add(e);
         }
 
         int[] dijkstra() {
