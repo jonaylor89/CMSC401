@@ -1,8 +1,9 @@
 
 import java.util.Scanner;
 import java.util.HashMap;
-import java.util.ArrayList; import java.util.PriorityQueue;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.stream.Stream;
 
 class Assignment3 {
 
@@ -11,8 +12,6 @@ class Assignment3 {
     public static void main(String[] argv) {
 
         Scanner in = new Scanner(System.in);
-
-        Graph g = new Graph();
 
         int numOfCities = in.nextInt();
         in.nextLine();
@@ -32,6 +31,8 @@ class Assignment3 {
             motelPrices.put(cityNumber, motelPrice);
         }
 
+        Graph g = new Graph(numOfCities);
+
         while (in.hasNextLine()) {
             int cityOne = in.nextInt();
             int cityTwo = in.nextInt();
@@ -44,7 +45,7 @@ class Assignment3 {
         Integer[] distance = g.dijkstra();
 
         // Print result
-        System.out.println(IntStream.of(distance).sum());
+        System.out.println(Stream.of(distance).mapToInt(Integer::intValue).sum());
 
     }
 
@@ -54,23 +55,13 @@ class Assignment3 {
         ArrayList<Edge>[] adjacencyList;
         PriorityQueue<Node> pq; 
 
-        public Graph() {
-            numOfVertices = 0;
-            adjacencyList = new ArrayList<Edge>[numOfVertices];
-            pq = new PriorityQueue<Node>();
-
-            for (int i = 0; i < numOfVertices; i++) {
-                adjacencyList[i] = new ArrayList<Edge>();
-            }
-        }
-
         public Graph(int V) {
             numOfVertices = V;
-            adjacencyList = new ArrayList<Edge>[numOfVertices];
+            adjacencyList = new ArrayList[numOfVertices];
             pq = new PriorityQueue<Node>();
 
             for (int i = 0; i < numOfVertices; i++) {
-                adjacencyList[i] = new ArrayList<Edge>();
+                adjacencyList[i] = new ArrayList<>();
             }
         }
 
@@ -78,7 +69,7 @@ class Assignment3 {
 
             Edge e = new Edge(src, srcWeight, dest, destWeight, weight);
 
-            edges.add(e);
+            adjacencyList[src].add(e);
         }
 
         public Integer[] dijkstra() {
@@ -100,7 +91,7 @@ class Assignment3 {
             //while minHeap is not empty
             while(!pq.isEmpty()){
                 //extract the min
-                Node extractedNode = pq.extractMin();
+                Node extractedNode = pq.poll();
 
                 //extracted vertex
                 int extractedVertex = extractedNode.id;
@@ -120,12 +111,12 @@ class Assignment3 {
                         int currentKey = nodes[dest[0]].distance;
                         if(currentKey > newKey){
                             //get the index which distance's needs a decrease;
-                            int index = pq.indexes[dist[0]];
+                            // int index = pq.indexes[dist[0]];
 
                             //get the node and update its value
-                            Node node = pq.mH[index];
-                            node.distance = newKey;
-                            pq.bubbleUp(index);
+                            // Node node = pq.mH[index];
+                            // node.distance = newKey;
+                            // pq.bubbleUp(index);
 
                             nodes[dest[0]].distance = newKey;
                         }
@@ -133,7 +124,7 @@ class Assignment3 {
                 }
             }
 
-            return pq.toArray();
+            return pq.toArray(new Integer[pq.size()]);
         }
     
     }
