@@ -32,7 +32,7 @@ class Assignment3 {
             int motelPrice = in.nextInt();
             in.nextLine();
 
-            motelPrices.put(cityNumber, motelPrice);
+            motelPrices.put(cityNumber-1, motelPrice);
         }
 
         Graph g = new Graph(numOfCities);
@@ -43,7 +43,7 @@ class Assignment3 {
             int price = in.nextInt();
             in.nextLine();
 
-            g.addEdge(cityOne, motelPrices.get(cityOne), cityTwo, motelPrices.get(cityTwo), price);
+            g.addEdge(cityOne-1, motelPrices.get(cityOne-1), cityTwo-1, motelPrices.get(cityTwo-1), price);
         }
 
         // Compute shortest path
@@ -147,7 +147,7 @@ class Assignment3 {
         }
 
        public int compareTo(Node other) {
-            distance.compareTo(other.distance);
+            return Integer.compare(this.distance, other.distance);
        }
     
     }
