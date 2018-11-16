@@ -1,8 +1,7 @@
 
 import java.util.Scanner;
 import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.PriorityQueue;
+import java.util.ArrayList; import java.util.PriorityQueue;
 import java.util.stream.IntStream;
 
 class Assignment3 {
