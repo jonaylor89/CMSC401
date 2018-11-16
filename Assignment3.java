@@ -19,6 +19,10 @@ class Assignment3 {
         int numOfHighways = in.nextInt();
         in.nextLine();
 
+        
+        for (int i = 0; i <= numOfCities; i++) {
+            motelPrices.put(i, 0);
+        }
 
         motelPrices.put(0, 0);
 
@@ -33,10 +37,11 @@ class Assignment3 {
 
         Graph g = new Graph(numOfCities);
 
-        while (in.hasNextLine()) {
+        for (int i = 0; i < numOfHighways; i++) {
             int cityOne = in.nextInt();
             int cityTwo = in.nextInt();
             int price = in.nextInt();
+            in.nextLine();
 
             g.addEdge(cityOne, motelPrices.get(cityOne), cityTwo, motelPrices.get(cityTwo), price);
         }
@@ -129,7 +134,7 @@ class Assignment3 {
     
     }
 
-    static class Node {
+    static class Node implements Comparable<Node> {
 
         public int id;
         public int weight;
@@ -140,6 +145,10 @@ class Assignment3 {
             this.weight = weight;
             this.distance = distance;
         }
+
+       public int compareTo(Node other) {
+            distance.compareTo(other.distance);
+       }
     
     }
 
