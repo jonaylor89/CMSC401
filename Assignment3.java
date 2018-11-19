@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-class Assignment3 {
-static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>(); 
+class cmsc401 {
+    static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>(); 
+
     public static void main(String[] argv) {
 
         Scanner in = new Scanner(System.in);
@@ -35,7 +36,6 @@ static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>();
 
         Graph g = new Graph(numOfCities);
 
-
         for (int i = 0; i < numOfHighways; i++) {
             int cityOne = in.nextInt();
             int cityTwo = in.nextInt();
@@ -56,9 +56,9 @@ static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>();
 
     static class PriorityQueue {
         int capacity;
-        int currentSize;
+        int size;
         Node[] mH;
-        int [] indexes; //will be used to decrease the distance
+        int [] indexes; 
 
 
         public PriorityQueue(int capacity) {
@@ -68,12 +68,12 @@ static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>();
             mH[0] = new Node();
             mH[0].distance = Integer.MIN_VALUE;
             mH[0].vertex=-1;
-            currentSize = 0;
+            size = 0;
         }
 
         public void insert(Node x) {
-            currentSize++;
-            int idx = currentSize;
+            size++;
+            int idx = size;
             mH[idx] = x;
             indexes[x.vertex] = idx;
             bubbleUp(idx);
@@ -97,13 +97,13 @@ static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>();
 
         public Node extractMin() {
             Node min = mH[1];
-            Node lastNode = mH[currentSize];
+            Node lastNode = mH[size];
 //            update the indexes[] and move the last node to the top
             indexes[lastNode.vertex] = 1;
             mH[1] = lastNode;
-            mH[currentSize] = null;
+            mH[size] = null;
             sinkDown(1);
-            currentSize--;
+            size--;
             return min;
         }
 
@@ -111,10 +111,10 @@ static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>();
             int smallest = k;
             int leftChildIdx = 2 * k;
             int rightChildIdx = 2 * k+1;
-            if (leftChildIdx < queueSize() && mH[smallest].distance > mH[leftChildIdx].distance) {
+            if (leftChildIdx < size && mH[smallest].distance > mH[leftChildIdx].distance) {
                 smallest = leftChildIdx;
             }
-            if (rightChildIdx < queueSize() && mH[smallest].distance > mH[rightChildIdx].distance) {
+            if (rightChildIdx < size && mH[smallest].distance > mH[rightChildIdx].distance) {
                 smallest = rightChildIdx;
             }
             if (smallest != k) {
@@ -137,11 +137,7 @@ static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>();
         }
 
         public boolean isEmpty() {
-            return currentSize == 0;
-        }
-
-        public int queueSize(){
-            return currentSize;
+            return size == 0;
         }
     }
 
@@ -227,7 +223,7 @@ static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>();
                         //the current distance value, if yes then update the distance
                         int newKey =  nodes[extractedVertex].distance + edge.weight + edge.destWeight;
                         int currentKey = nodes[dest].distance;
-                        if (currentKey > newKey){
+                        if (currentKey > newKey) {
                             decreaseKey(pq, newKey, dest);
                             nodes[dest].distance = newKey;
                         }
@@ -241,10 +237,10 @@ static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>();
 
         public void decreaseKey(PriorityQueue pq, int newKey, int vertex){
 
-            //get the index which distance's needs a decrease;
+            // get the index which distance's needs a decrease;
             int index = pq.indexes[vertex];
 
-            //get the node and update its value
+            // get the node and update its value
             Node node = pq.mH[index];
             node.distance = newKey;
             pq.bubbleUp(index);
