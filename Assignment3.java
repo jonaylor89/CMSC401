@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-class cmsc401 {
+class Assignment3 {
     static HashMap<Integer, Integer> motelPrices = new HashMap<Integer, Integer>(); 
 
     public static void main(String[] argv) {
