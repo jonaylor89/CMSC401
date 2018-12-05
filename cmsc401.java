@@ -1,14 +1,18 @@
 
 import java.util.Scanner;
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class cmsc401 {
 
     static Scanner in = new Scanner(System.in);
-    static ArrayList<Integer> cuts = new ArrayList<Integer>();
-    static ArrayList<ArrayList<Integer>> dp = new ArrayList<>();
-    static ArrayList<ArrayList<Integer>> parent = new ArrayList<>();
-    static ArrayList<Integer> ans = new ArrayList<Integer>();
+    static List<Integer> cuts = new ArrayList<Integer>();
+    static List<Integer> ans = new ArrayList<Integer>();
+    static List<ArrayList<Integer>> dp;
+    static List<ArrayList<Integer>> parent;
 
     public static void main(String[] argv) {
     
@@ -25,7 +29,11 @@ public class cmsc401 {
             in.nextLine();
         }
 
-        System.out.println(cutRod(cuttingPoints, rodSize));
+        int ret = cutRod(cuttingPoints, rodSize);
+
+        for (int i = 0; i < ans.size(); i++) {
+            System.out.println(ans.get(i));
+        }
 
     }
 
@@ -38,16 +46,18 @@ public class cmsc401 {
             cuts.add(points.get(i));
         }
 
-        dp.ensureCapacity(points.size());
-        parent.ensureCapacity(points.size());
+        dp = Stream.generate(ArrayList<Integer>::new)
+                             .limit(points.size())
+                             .collect(Collectors.toList());
+
+        parent = Stream.generate(ArrayList<Integer>::new)
+                             .limit(points.size())
+                             .collect(Collectors.toList());
 
         for (int i = 0; i < points.size(); i++) {
-            dp.ensureCapacity(points.size());
-            parent.ensureCapacity(points.size());
+            dp.set(i, new ArrayList<Integer>(Collections.nCopies(points.size(), -1)));
+            parent.set(i, new ArrayList<Integer>(Collections.nCopies(points.size(), -1)));
 
-            for (int j = 0; j < points.size(); j++) {
-                dp.get(i).set(j, -1);
-            }
         }
 
         int best = C(0, points.size()-1);
@@ -69,6 +79,7 @@ public class cmsc401 {
             return ret; 
         }
 
+        ret = Integer.MAX_VALUE;
         int bestind = 0;
 
         for(int z = i + 1; z < j; z++) {
