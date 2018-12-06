@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
-public class cmsc401 {
+public class Assignment4 {
 
     static Scanner in = new Scanner(System.in);
     static List<Integer> cuts = new ArrayList<Integer>();
