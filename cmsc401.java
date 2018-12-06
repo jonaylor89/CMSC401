@@ -29,11 +29,9 @@ public class cmsc401 {
             in.nextLine();
         }
 
-        int ret = cutRod(cuttingPoints, rodSize);
+        int price = cutRod(cuttingPoints, rodSize);
 
-        for (int i = 0; i < ans.size(); i++) {
-            System.out.println(ans.get(i));
-        }
+        System.out.println(price);
 
     }
 
@@ -57,14 +55,33 @@ public class cmsc401 {
         for (int i = 0; i < points.size(); i++) {
             dp.set(i, new ArrayList<Integer>(Collections.nCopies(points.size(), -1)));
             parent.set(i, new ArrayList<Integer>(Collections.nCopies(points.size(), -1)));
-
         }
 
         int best = C(0, points.size()-1);
         back(0, points.size()-1);
 
+        int priceOfCuts = calculatePrice(0, rodLength);
 
-        return 0;
+        return priceOfCuts;
+    }
+
+    static int calculatePrice(int beginning, int end) {
+
+        if (beginning >= end || ans.size() == 0) {
+            return 0;
+        }
+
+        int cost = end - beginning;
+        int cut = ans.get(0);
+
+        if (cut < beginning || cut > end) {
+            return 0; 
+        }
+
+        ans.remove(0);
+
+        return cost + calculatePrice(beginning, cut) + calculatePrice(cut, end);
+         
     }
 
     static int C(int i, int j) {
